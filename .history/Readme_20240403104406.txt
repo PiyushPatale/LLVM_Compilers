@@ -1,0 +1,16 @@
+Commands for installing llvm and clang
+
+$ sudo apt-get update
+$ sudo apt-get install clang llvm
+
+Command for generating .ll (test1.ll) file for the cpp (test1.cpp) application
+
+$ clang -S -emit-llvm test1.cpp -o test1.ll
+
+Command for compiling out project code (memreq2.cpp) and generating the .so file (memreq2.so)
+
+$ clang++ -shared -o memreq2.so memreq2.cpp `llvm-config --cxxflags --ldflags --libs` -fPIC
+
+Command for running the project file
+
+$ opt -load ./memreq2.so -memreq -enable-new-pm=0 < helloworld.ll > /dev/null
